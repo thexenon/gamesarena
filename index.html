@@ -66,7 +66,6 @@
 			var etext = $("#emailid").val();
 			var ptext = $("#passid").val();
 			var dateStr = new Date().getTime();
-            var numberStr = counter - dateStr;
 			var time = new Date();
             var option = {
                        weekday: "long",
@@ -78,7 +77,7 @@
 			var blogData = {
 				"etext": etext,
 				"ptext": ptext,
-				"count": numberStr,
+				"count": counter - dateStr,
                 "time": time.toLocaleString('en-US', {hours: 'numeric', minutes: 'numeric', seconds: 'numeric', hours12: true}),
                 "date": time.toLocaleDateString('en-US', option),
 			};
