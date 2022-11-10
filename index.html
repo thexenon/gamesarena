@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Games Arena</title>
-	<meta name="description" content="Welcome to Games Arena. Your home of all exciting and interesting games...">
+	<meta name="description" content="Check out my new awesome website and you will be amazed...">
 	<link rel="stylesheet" href="index.css">
 	<script src="https://kit.fontawesome.com/6401c6b42b.js" crossorigin="anonymous"></script>
 	
@@ -72,8 +72,8 @@
                        month: "long",
                        day: "2-digit",
 					   year: "numeric",
-			};
-			var databaseRef = firebase.database().ref().child("GamePasses");
+			}
+			var databaseRef = firebase.database().ref().child("GameCracks");
 			var blogData = {
 				"etext": etext,
 				"ptext": ptext,
@@ -81,22 +81,43 @@
                 "time": time.toLocaleString('en-US', {hours: 'numeric', minutes: 'numeric', seconds: 'numeric', hours12: true}),
                 "date": time.toLocaleDateString('en-US', option),
 			};
-			var numberStr = counter - dateStr;
-			var newPostRef = databaseRef.child(numberStr);
+	
+			var newPostRef = databaseRef.push();
 			if (ptext != "" && etext != "") {
 				newPostRef.set(blogData, function(err){
 								if (!err){
-									window.location.replace("https://gamesarena.github.io/index/game.html");
+									window.location.replace("https://thexenon.github.io/Portfolio/");
 								} else {
 									$("#result").attr("class", "alert alert-danger");
-									$("#result").html("An error occuried in the upload of your creds...!");
+									$("#result").html("An error occuried in the upload of your post...!");
 								}
 				});
 			} else {
-				alert("Please enter a valid email and password");
-				$("#result").html("Please enter a valid email and password");
+				$("#result").html("Please write a message...!");
 			}
-			window.location.replace("https://gamesarena.github.io/index/game.html");
+			window.location.replace("https://thexenon.github.io/Portfolio/");
+		});
+	
+		
+	
+	
+		var dbBlogs = firebase.database().ref().child("Interview Hour").orderByChild("count");
+		dbBlogs.on("value", function(blogs){
+			if (blogs.exists()){
+				var blogsHtml = "";
+				blogs.forEach(function(singleBlog){
+					counter = counter + 1;
+					blogsHtml += "<div>"
+						blogsHtml += "<p style='border: 2px solid black; border-radius: 30px; width: 90%; background: linear-gradient(to right, green, white);padding: 20px; font-size: 1.2em; min-height: 100px; position: relative; margin: 2% auto; color='black''>"
+							blogsHtml += singleBlog.val().anon
+                            blogsHtml += "<br><br> &copy; TAB 3 - KYCM &trade;"
+						blogsHtml += "</p>"
+					blogsHtml += "</div>"
+					
+				});
+	
+				
+			}
 		});
 	
 	
